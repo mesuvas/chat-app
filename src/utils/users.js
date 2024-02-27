@@ -2,13 +2,16 @@ const users = []
 
 //addUser, removeUser, getUser, getUserInRoom
 const addUser = ({ id, username, room }) => {
+
+
   //Clean the data
   username = username.trim().toLowerCase();
   room = room.trim().toLowerCase();
-
  
+  console.log('username: ' + username)
+  
   // Validate the data
-  if (!username || !room) {
+  if (!username.trim()  || !room.trim()) {
     return {    
         error: "Username and room are required",
     };
@@ -50,7 +53,7 @@ const getUser = (id) => {
 const getUsersInRoom = (room) => {
     room = room.trim().toLowerCase()
     return users.filter((user) => {
-        user.room === room
+        return user.room === room
     })
 }
 

@@ -19,8 +19,7 @@ io.on('connection', (socket) =>{
 
     socket.on('join', (options) => {
 
-        const user = addUser({id:socket.id, ...options})
-
+        const user = addUser({id:socket.id, ...options})        
          
         socket.join(user.room);
  
@@ -30,15 +29,15 @@ io.on('connection', (socket) =>{
 
       })
 
-    socket.on('sendMessage', (message, callback) => { 
-        const filter = new Filter()
- 
-        if(filter.isProfane(message)){
-            return callback('Profanity is not allowed')
-        }
+    socket.on('sendMessage', (message, callback) => {
+      const filter = new Filter();
 
-        io.to('Center City').emit('message', generateMessage(message))
-        callback()
+      if (filter.isProfane(message)) {
+        return callback("Profanity is not allowed");
+      }
+
+      io.emit("message", generateMessage(message));
+      callback();
     })
 
     socket.on('sendLocation', (cords, callback) => {
